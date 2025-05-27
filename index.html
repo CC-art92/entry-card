@@ -79,32 +79,33 @@
             text-align: center;
         }
         .card-title {
-            font-size: 28px; /* 增大2号(原24px) */
+            font-size: 28px;
             color: white;
-            margin-bottom: 5px; /* 调整间距 */
+            margin-bottom: 5px;
             font-weight: 600;
             text-align: center;
             text-shadow: 0 2px 5px rgba(0,0,0,0.3);
         }
         .welcome-text {
-            font-size: 11px; /* 匹配footer-text字号 */
+            font-size: 11px;
             color: rgba(255,255,255,0.8);
             line-height: 1.6;
-            margin-bottom: 5px; /* 调整间距 */
+            margin-bottom: 5px;
             text-shadow: 0 1px 3px rgba(0,0,0,0.3);
         }
         .motivational-quote {
-            font-size: 11px;
-            color: rgba(255,255,255,0.8);
+            font-size: 14px; /* 调整为14px与组别信息一致 */
+            color: rgba(255,255,255,0.9);
             line-height: 1.4;
             margin-bottom: 15px;
             text-shadow: 0 1px 3px rgba(0,0,0,0.3);
             padding: 0 10px;
+            text-align: center;
         }
         .username {
             font-size: 28px;
             color: white;
-            margin: 15px 0; /* 调整间距 */
+            margin: 15px 0;
             font-weight: 600;
             text-align: center;
             padding: 10px 20px;
@@ -289,18 +290,26 @@
             return motivationalQuotes[randomIndex];
         }
 
-        // 获取 URL 参数并填充数据
-        const paramStr = new URLSearchParams(window.location.search).get("params");
-        const decodedStr = decodeURIComponent(paramStr || "");
-        const params = new URLSearchParams(decodedStr);
+        // 更新后的参数处理逻辑
+        const query = new URLSearchParams(window.location.search);
+        const rawParams = query.get("params");
 
-        const name = params.get("name") || "成长探索者";
-        const id = params.get("id") || "2025";
-        const group = params.get("group") || "时间管理组";
-        const leader = params.get("leader") || "李未来";
-        const co_leader = params.get("co_leader") || "张复盘";
+        let name = "成长探索者";
+        let id = "2025";
+        let group = "时间管理组";
+        let leader = "李未来";
+        let co_leader = "张复盘";
 
-        // 自动填入 HTML
+        if (rawParams) {
+            const decoded = decodeURIComponent(rawParams);
+            const subParams = new URLSearchParams(decoded);
+            name = subParams.get("name") || name;
+            id = subParams.get("id") || id;
+            group = subParams.get("group") || group;
+            leader = subParams.get("leader") || leader;
+            co_leader = subParams.get("co_leader") || co_leader;
+        }
+
         document.getElementById("name").innerText = name;
         document.getElementById("id").innerText = id;
         document.getElementById("group").innerText = group;
