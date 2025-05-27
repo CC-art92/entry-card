@@ -79,17 +79,32 @@
             text-align: center;
         }
         .card-title {
-            font-size: 24px;
+            font-size: 28px; /* 增大2号(原24px) */
             color: white;
-            margin-bottom: 20px;
+            margin-bottom: 5px; /* 调整间距 */
             font-weight: 600;
             text-align: center;
             text-shadow: 0 2px 5px rgba(0,0,0,0.3);
         }
+        .welcome-text {
+            font-size: 11px; /* 匹配footer-text字号 */
+            color: rgba(255,255,255,0.8);
+            line-height: 1.6;
+            margin-bottom: 5px; /* 调整间距 */
+            text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+        }
+        .motivational-quote {
+            font-size: 11px;
+            color: rgba(255,255,255,0.8);
+            line-height: 1.4;
+            margin-bottom: 15px;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+            padding: 0 10px;
+        }
         .username {
             font-size: 28px;
             color: white;
-            margin: 25px 0 15px;
+            margin: 15px 0; /* 调整间距 */
             font-weight: 600;
             text-align: center;
             padding: 10px 20px;
@@ -128,13 +143,6 @@
             content: "二维码";
             font-size: 12px;
             color: rgba(255,255,255,0.6);
-        }
-        .welcome-text {
-            font-size: 18px;
-            color: rgba(255,255,255,0.8);
-            line-height: 1.6;
-            margin-bottom: 20px;
-            text-shadow: 0 1px 3px rgba(0,0,0,0.3);
         }
         .footer {
             display: flex;
@@ -218,8 +226,9 @@
             <div class="future-badge">未来可期</div>
             
             <div class="card-content">
-                <div class="card-title">2025年中复盘营</div>
-                <div class="welcome-text">欢迎加入成长之旅<br>让我们一起回顾过去，展望未来</div>
+                <div class="card-title">2O25年中复盘营</div>
+                <div class="welcome-text">欢迎加入成长之旅</div>
+                <div class="motivational-quote" id="motivationalQuote"></div>
                 <div class="username">@<span id="name">成长探索者</span></div>
                 
                 <div class="info-section">
@@ -260,32 +269,46 @@
             });
         }
 
-        // 获取 URL 中的 ?params=... 部分
-        const queryString = window.location.search;
-        const urlParams = new URLSearchParams(queryString);
-        const rawParam = urlParams.get('params');
+        // 10条目标管理和复盘相关的金句
+        const motivationalQuotes = [
+            "复盘是成长的阶梯，目标是前进的灯塔",
+            "没有复盘的努力，只是低水平的重复",
+            "目标管理不是束缚，而是解放潜能的钥匙",
+            "每日复盘三问：做了什么？收获什么？改进什么？",
+            "清晰的目标+持续的复盘=指数级成长",
+            "复盘过去，不是为了自责，而是为了更好的未来",
+            "目标要像北极星，指引你穿越迷雾",
+            "真正的成长，来自于有意识的复盘和调整",
+            "没有记录就没有发生，没有复盘就没有进步",
+            "用目标指引方向，用复盘校准路径"
+        ];
 
-        // 解码并转为对象
-        const decoded = decodeURIComponent(rawParam || '');
-        const paramMap = {};
-        decoded.split('&').forEach(pair => {
-            const [key, value] = pair.split('=');
-            paramMap[key] = value;
-        });
+        // 随机选择一条金句
+        function getRandomQuote() {
+            const randomIndex = Math.floor(Math.random() * motivationalQuotes.length);
+            return motivationalQuotes[randomIndex];
+        }
 
-        // 设置默认字段（避免页面崩溃）
-        const name = paramMap.name || '成长探索者';
-        const id = paramMap.id || '2025';
-        const group = paramMap.group || '时间管理组';
-        const leader = paramMap.leader || '李未来';
-        const co_leader = paramMap.co_leader || '张复盘';
+        // 获取 URL 参数并填充数据
+        const paramStr = new URLSearchParams(window.location.search).get("params");
+        const decodedStr = decodeURIComponent(paramStr || "");
+        const params = new URLSearchParams(decodedStr);
 
-        // 显示在页面上
-        document.getElementById('name').innerText = name;
-        document.getElementById('id').innerText = id;
-        document.getElementById('group').innerText = group;
-        document.getElementById('leader').innerText = leader;
-        document.getElementById('co_leader').innerText = co_leader;
+        const name = params.get("name") || "成长探索者";
+        const id = params.get("id") || "2025";
+        const group = params.get("group") || "时间管理组";
+        const leader = params.get("leader") || "李未来";
+        const co_leader = params.get("co_leader") || "张复盘";
+
+        // 自动填入 HTML
+        document.getElementById("name").innerText = name;
+        document.getElementById("id").innerText = id;
+        document.getElementById("group").innerText = group;
+        document.getElementById("leader").innerText = leader;
+        document.getElementById("co_leader").innerText = co_leader;
+        
+        // 显示随机金句
+        document.getElementById('motivationalQuote').innerText = getRandomQuote();
     </script>
 </body>
 </html>
