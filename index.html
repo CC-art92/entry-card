@@ -220,7 +220,7 @@
             <div class="card-content">
                 <div class="card-title">2025年中复盘营</div>
                 <div class="welcome-text">欢迎加入成长之旅<br>让我们一起回顾过去，展望未来</div>
-                <div class="username" id="name">@成长探索者</div>
+                <div class="username" id="username">@成长探索者</div>
                 
                 <div class="info-section">
                     <div class="info-list">
@@ -260,16 +260,19 @@
             });
         }
 
-        const query = new URLSearchParams(window.location.search);
-        const $ = (id) => document.getElementById(id);
         window.onload = function () {
-            const get = (key) => decodeURIComponent(query.get(key) || '');
+            const query = new URLSearchParams(window.location.search);
+            const raw = query.get("params"); // 提取 ?params=xxx
+            const decoded = decodeURIComponent(raw || ""); // 解码还原字符串
 
-            if ($("name")) $("name").innerText = "@" + (get("name") || "成长探索者");
-            if ($("id")) $("id").innerText = "学号：" + (get("id") || "2025");
-            if ($("group")) $("group").innerText = "组别：" + (get("group") || "时间管理组");
-            if ($("leader")) $("leader").innerText = "团长：" + (get("leader") || "李未来");
-            if ($("co_leader")) $("co_leader").innerText = "副团长：" + (get("co_leader") || "张复盘");
+            const paramObj = new URLSearchParams(decoded); // 再次拆解为键值对象
+
+            // 写入页面
+            document.getElementById("username").innerText = "@" + (paramObj.get("name") || "成长探索者");
+            document.getElementById("id").innerText = "学号：" + (paramObj.get("id") || "2025");
+            document.getElementById("group").innerText = "组别：" + (paramObj.get("group") || "时间管理组");
+            document.getElementById("leader").innerText = "团长：" + (paramObj.get("leader") || "李未来");
+            document.getElementById("co_leader").innerText = "副团长：" + (paramObj.get("co_leader") || "张复盘");
         };
     </script>
 </body>
