@@ -220,14 +220,14 @@
             <div class="card-content">
                 <div class="card-title">2025年中复盘营</div>
                 <div class="welcome-text">欢迎加入成长之旅<br>让我们一起回顾过去，展望未来</div>
-                <div class="username" id="username">@成长探索者</div>
+                <div class="username">@<span id="name">成长探索者</span></div>
                 
                 <div class="info-section">
                     <div class="info-list">
-                        <div class="info-item" id="id">学号：2025</div>
-                        <div class="info-item" id="group">组别：时间管理组</div>
-                        <div class="info-item" id="leader">团长：李未来</div>
-                        <div class="info-item" id="co_leader">副团长：张复盘</div>
+                        <div class="info-item">学号：<span id="id">2025</span></div>
+                        <div class="info-item">组别：<span id="group">时间管理组</span></div>
+                        <div class="info-item">团长：<span id="leader">李未来</span></div>
+                        <div class="info-item">副团长：<span id="co_leader">张复盘</span></div>
                     </div>
                     <div class="qrcode-placeholder"></div>
                 </div>
@@ -260,20 +260,24 @@
             });
         }
 
-        window.onload = function () {
-            const query = new URLSearchParams(window.location.search);
-            const raw = query.get("params"); // 提取 ?params=xxx
-            const decoded = decodeURIComponent(raw || ""); // 解码还原字符串
+        // 获取 URL 中的 params 参数
+        const raw = new URLSearchParams(window.location.search).get("params");
+        const decoded = decodeURIComponent(raw || "");
+        const parsed = new URLSearchParams(decoded);
 
-            const paramObj = new URLSearchParams(decoded); // 再次拆解为键值对象
+        // 从解析后的参数中提取字段
+        const name = parsed.get("name") || "成长探索者";
+        const id = parsed.get("id") || "2025";
+        const group = parsed.get("group") || "时间管理组";
+        const leader = parsed.get("leader") || "李未来";
+        const co_leader = parsed.get("co_leader") || "张复盘";
 
-            // 写入页面
-            document.getElementById("username").innerText = "@" + (paramObj.get("name") || "成长探索者");
-            document.getElementById("id").innerText = "学号：" + (paramObj.get("id") || "2025");
-            document.getElementById("group").innerText = "组别：" + (paramObj.get("group") || "时间管理组");
-            document.getElementById("leader").innerText = "团长：" + (paramObj.get("leader") || "李未来");
-            document.getElementById("co_leader").innerText = "副团长：" + (paramObj.get("co_leader") || "张复盘");
-        };
+        // 将值插入到页面对应位置
+        document.getElementById("name").textContent = name;
+        document.getElementById("id").textContent = id;
+        document.getElementById("group").textContent = group;
+        document.getElementById("leader").textContent = leader;
+        document.getElementById("co_leader").textContent = co_leader;
     </script>
 </body>
 </html>
