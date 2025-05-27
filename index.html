@@ -260,24 +260,32 @@
             });
         }
 
-        // 获取 URL 中的 params 参数
-        const raw = new URLSearchParams(window.location.search).get("params");
-        const decoded = decodeURIComponent(raw || "");
-        const parsed = new URLSearchParams(decoded);
+        // 获取 URL 中的 ?params=... 部分
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        const rawParam = urlParams.get('params');
 
-        // 从解析后的参数中提取字段
-        const name = parsed.get("name") || "成长探索者";
-        const id = parsed.get("id") || "2025";
-        const group = parsed.get("group") || "时间管理组";
-        const leader = parsed.get("leader") || "李未来";
-        const co_leader = parsed.get("co_leader") || "张复盘";
+        // 解码并转为对象
+        const decoded = decodeURIComponent(rawParam || '');
+        const paramMap = {};
+        decoded.split('&').forEach(pair => {
+            const [key, value] = pair.split('=');
+            paramMap[key] = value;
+        });
 
-        // 将值插入到页面对应位置
-        document.getElementById("name").textContent = name;
-        document.getElementById("id").textContent = id;
-        document.getElementById("group").textContent = group;
-        document.getElementById("leader").textContent = leader;
-        document.getElementById("co_leader").textContent = co_leader;
+        // 设置默认字段（避免页面崩溃）
+        const name = paramMap.name || '成长探索者';
+        const id = paramMap.id || '2025';
+        const group = paramMap.group || '时间管理组';
+        const leader = paramMap.leader || '李未来';
+        const co_leader = paramMap.co_leader || '张复盘';
+
+        // 显示在页面上
+        document.getElementById('name').innerText = name;
+        document.getElementById('id').innerText = id;
+        document.getElementById('group').innerText = group;
+        document.getElementById('leader').innerText = leader;
+        document.getElementById('co_leader').innerText = co_leader;
     </script>
 </body>
 </html>
