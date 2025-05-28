@@ -86,21 +86,16 @@
             text-align: center;
             text-shadow: 0 2px 5px rgba(0,0,0,0.3);
         }
-        .welcome-text {
-            font-size: 11px;
-            color: rgba(255,255,255,0.8);
-            line-height: 1.6;
-            margin-bottom: 5px;
-            text-shadow: 0 1px 3px rgba(0,0,0,0.3);
-        }
         .motivational-quote {
-            font-size: 14px; /* 调整为14px与组别信息一致 */
-            color: rgba(255,255,255,0.9);
+            font-size: 14px; /* 调整为与学号、组别相同的14px */
+            color: rgba(255,255,255,0.9); /* 与学号、组别相同的颜色 */
             line-height: 1.4;
             margin-bottom: 15px;
             text-shadow: 0 1px 3px rgba(0,0,0,0.3);
             padding: 0 10px;
             text-align: center;
+            font-weight: normal; /* 普通字重，不加粗 */
+            font-style: normal; /* 非斜体 */
         }
         .username {
             font-size: 28px;
@@ -228,7 +223,6 @@
             
             <div class="card-content">
                 <div class="card-title">2O25年中复盘营</div>
-                <div class="welcome-text">欢迎加入成长之旅</div>
                 <div class="motivational-quote" id="motivationalQuote"></div>
                 <div class="username">@<span id="name">成长探索者</span></div>
                 
